@@ -1,0 +1,57 @@
+{% extends 'locationblango/base.html' %}
+
+{% block title %}Booking list |{% endblock %}
+
+{% block content %}
+
+
+        <h2 class="is-size-3">All Booking</h2>
+        <hr>
+
+
+          <div class="col">
+              <div class="card h-100">
+                  <div class="card-body">
+                      <div class="list-group w-auto">
+                          <table class="table is-fullwidth">
+                              <thead>
+                                  <tr>
+                                      <th>Customer_Name</th>
+                                      <th>Room_number </th>
+                                      <th>Date_entree</th>
+                                      <th>Date_sortie</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {% for booking in bookings %}
+                                      <tr>
+                                          <td><a style="text-decoration: none;" href="{% url 'booking-detail' booking.pk %}"><h6 class="mb-0">{{ booking.user }}</h6></a></td>
+                                          <td><h6 class="mb-0">{{ booking.room }}</h6></td>
+                                          <td><h6 class="mb-0">{{ booking.check_in }}</h6></td>
+                                          <td><h6 class="mb-0">{{ booking.check_out }}</h6></td>
+                                          {% if booking.user == request.user %}
+                                              <td><h6 class="mb-0"><a  style="text-decoration: none;"  href="{% url 'booking-update' booking.pk %}" >Update</a></h6></td>
+                                              <td><h6 class="mb-0"><a  style="text-decoration: none; color:red;" href="{% url 'delete-booking' booking.pk %}" >Delete</a></h6></td>
+                                          {% endif %}
+                                      </tr>
+                                  {% endfor %}
+                              </tbody>
+                          </table>
+                          {% if bookings.has_previous %}
+                              <a href="{% url 'booking-list' %}?page={{ bookings.previous_page_number }}">Previous</a>
+                          {% endif %}
+                          {% if bookings.has_next %}
+                              <a href="{% url 'booking-list' %}?page={{ bookings.next_page_number }}">Next</a>
+                          {% endif %}
+                          <br><br>
+                          {% if messages %}
+                             {% for message in messages %}
+                                <div class="notification is-success is-toast">{{ message }}</div>
+                             {% endfor %}
+                          {% endif %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+{% endblock %}

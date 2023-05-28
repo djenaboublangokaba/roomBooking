@@ -1,0 +1,43 @@
+{% extends 'locationblango/base.html' %}
+
+{% block title %}Front page |{% endblock %}
+
+{% block content %}
+
+    <h2 class="is-size-3">Blango Immobilier</h2>
+    <hr>
+    <br>
+    <br>
+
+    <div class="row row-cols-md-4 row-cols-sm-2">
+        {% for room in rooms %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        {% if room.thumbnail %}
+                            <img src="{{ room.thumbnail.url }}" class="card-img-top" alt="...">
+                        {% endif %}
+                        <h6 class="card-title">Room_number : {{ room.number }}</h6>
+                        <h6 class="card-title">Room_price : {{ room.price }} GNF</h6>
+                        <p class="card-text"><strong>Room_description :</strong>{{ room.description }}</p>
+                        {% if user.is_authenticated %}
+                            <hr>
+                            <a  style="text-decoration: none;" href="{% url 'booking-list' %}" class="button is-dark ">View_booking_list</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% if rooms.has_previous %}
+            <a href="{% url 'frontpage' %}?page={{ rooms.previous_page_number }}">Previous</a>
+        {% endif %}
+        {% if rooms.has_next %}
+            <a href="{% url 'frontpage' %}?page={{ rooms.next_page_number }}">Next</a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+
+
+

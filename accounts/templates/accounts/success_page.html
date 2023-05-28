@@ -1,0 +1,23 @@
+{% extends 'locationblango/base.html' %}
+
+
+{% block content %}
+
+    <h2 class="is-size-3">Successfuly booked</h2>
+    <hr>
+    <div class="list-group w-auto">
+        <table>
+            <tr><h3 class="is-size-4"><strong>Customer_Name :</strong> {{ booking.user }}</h3></tr>
+            <tr><h4 class="mb-0"><strong>Room_number:</strong>{{ booking.room }}</h4></tr>
+            <tr><h6 class="mb-0"><strong>Date_entree: </strong>{{ booking.check_in }}</h6></tr>
+            <tr><h6 class="mb-0"><strong>Date_sortie: </strong>{{ booking.check_out }}</h6></tr>
+        </table>
+    </div>
+    <hr>
+    {% if messages %}
+       {% for message in messages %}
+          <div class="notification is-success is-toast">{{ message }}</div>
+       {% endfor %}
+    {% endif %}
+
+{% endblock %}

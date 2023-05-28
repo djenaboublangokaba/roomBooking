@@ -1,0 +1,35 @@
+{% extends 'locationblango/base.html' %}
+
+{% block title %}Booking page |{% endblock %}
+
+{% block content %}
+
+    <h2 class="is-size-3">Booking page</h2>
+    <hr>
+
+    <div class="container">
+        <div class="row">
+            <div class="co-md-8 mx-auto">
+
+                <form  method="post" action="." enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-dark uppercase">Book_room</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+     {% if messages %}
+          {% for message in messages %}
+              <div class="notification is-success is-toast">{{ message }}</div>
+          {% endfor %}
+     {% endif %}
+
+{% endblock %}
